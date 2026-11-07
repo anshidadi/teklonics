@@ -1,12 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  ArrowUpRight, 
-  CheckCircle2, 
-  Sparkles
-} from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { projectsData } from '../data/projectsData';
+import { ProjectPreviewMockup } from '../components/common/ProjectPreviewMockup';
 
 export const ProjectDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,9 +12,9 @@ export const ProjectDetail: React.FC = () => {
   if (!project) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 space-y-6">
-        <h1 className="text-3xl font-display font-bold text-white">Project Case Study Not Found</h1>
+        <h1 className="text-3xl font-display font-bold text-white">Project Not Found</h1>
         <p className="text-slate-400 max-w-md">
-          The requested concept project does not exist or has been relocated within our studio directory.
+          The requested project does not exist in our directory.
         </p>
         <Link
           to="/work"
@@ -31,17 +27,13 @@ export const ProjectDetail: React.FC = () => {
     );
   }
 
-  // Find other projects for navigation
   const otherProjects = projectsData.filter((p) => p.id !== project.id).slice(0, 2);
 
   return (
-    <div className="py-12 sm:py-20 relative">
-      {/* Background illumination */}
-      <div className="absolute top-20 left-1/4 w-[500px] h-[300px] bg-blue-600/5 blur-[140px] pointer-events-none rounded-full"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+    <div className="py-16 sm:py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
-        {/* Top Navigation Bar */}
+        {/* Back Link & Category */}
         <div className="flex items-center justify-between">
           <Link
             to="/work"
@@ -62,17 +54,13 @@ export const ProjectDetail: React.FC = () => {
         </div>
 
         {/* Hero Header */}
-        <div className="max-w-4xl space-y-6">
-          <div className="text-xs font-mono text-blue-400 uppercase tracking-widest">
-            {project.clientType}
-          </div>
-
+        <div className="max-w-4xl space-y-4">
           <h1 className="text-4xl sm:text-6xl font-display font-bold text-white tracking-tight leading-[1.1]">
             {project.title}
           </h1>
 
           <p className="text-xl text-slate-300 leading-relaxed font-normal">
-            {project.fullDesc}
+            {project.tagline}
           </p>
 
           <div className="pt-2 flex flex-wrap gap-2">
@@ -87,142 +75,96 @@ export const ProjectDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero Showcase Image */}
-        <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative bg-slate-900 aspect-[16/9] max-h-[580px] w-full">
-          <img 
-            src={project.previewImage} 
-            alt={project.title}
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-          
-          <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="text-xs font-mono text-slate-300 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 inline-block">
-              Teklonics High-Performance Production Blueprint
-            </div>
-
-            <Link
-              to={`/contact?service=${encodeURIComponent(project.category)}&projectRef=${encodeURIComponent(project.title)}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition-all self-start sm:self-auto"
-            >
-              <span>Discuss Similar Implementation</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+        {/* Realistic Project Preview Interface Frame */}
+        <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative bg-[#090d16] aspect-[16/9] max-h-[580px] w-full">
+          <ProjectPreviewMockup type={project.previewType} title={project.title} />
         </div>
 
-        {/* Key Metrics Banner */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {project.metrics.map((metric, idx) => (
-            <div key={idx} className="glass-card rounded-2xl p-5 border border-white/[0.08] text-center space-y-1">
-              <span className="block text-2xl sm:text-3xl font-display font-bold text-white text-gradient-blue font-mono">
-                {metric.value}
-              </span>
-              <span className="block text-xs font-mono uppercase text-slate-400 tracking-wider">
-                {metric.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Deep Dive: The Challenge & The Architectural Solution */}
+        {/* Detailed Breakdown */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
-          {/* Challenge */}
-          <div className="glass-card rounded-2xl p-8 border border-white/[0.08] space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-red-400">
-              <span className="w-2 h-2 rounded-full bg-red-400"></span>
-              <span>THE ENGINEERING CHALLENGE</span>
-            </div>
-
-            <h3 className="text-2xl font-display font-bold text-white">
-              The Problem We Solved
+          {/* Overview */}
+          <div className="p-8 rounded-2xl bg-[#090d16] border border-white/[0.08] space-y-4">
+            <h3 className="text-xl font-display font-bold text-white">
+              Project Overview
             </h3>
-
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              {project.challenge}
+              {project.fullDesc}
             </p>
-
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs text-slate-400 font-mono space-y-1">
-              <div>• Legacy monolithic bottlenecks</div>
-              <div>• Poor mobile conversion thresholds</div>
-              <div>• Complex state synchronization issues</div>
+            <div className="pt-2">
+              <span className="text-xs font-mono text-slate-500 block">
+                Concept Reference Implementation by Teklonics
+              </span>
             </div>
           </div>
 
-          {/* Solution */}
-          <div className="glass-card rounded-2xl p-8 border border-blue-500/20 bg-blue-950/10 space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-blue-400">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>THE ARCHITECTURAL SOLUTION</span>
-            </div>
-
-            <h3 className="text-2xl font-display font-bold text-white">
-              How Teklonics Engineered It
+          {/* Key Features */}
+          <div className="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/30 space-y-4">
+            <h3 className="text-xl font-display font-bold text-white">
+              Key Features
             </h3>
-
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              {project.solution}
-            </p>
-
-            <div className="p-4 rounded-xl bg-blue-950/40 border border-blue-500/20 text-xs text-blue-300 font-mono space-y-1">
-              <div>✔ Decoupled modular micro-frontend components</div>
-              <div>✔ Zero layout shift responsive optimization</div>
-              <div>✔ Strict TypeScript typing & OpenAPI contracts</div>
-            </div>
+            <ul className="space-y-2.5">
+              {project.features.map((feat, idx) => (
+                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
         </div>
 
-        {/* Key Deliverables Matrix */}
-        <div className="glass-card rounded-2xl p-8 border border-white/[0.08] space-y-6">
-          <div className="space-y-1">
-            <h3 className="text-xl font-display font-bold text-white">
-              Shipped Deliverables & Technical Specs
-            </h3>
-            <p className="text-xs font-mono text-slate-400">
-              Artifacts and code modules built for this architecture
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {project.deliverables.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs sm:text-sm text-slate-300">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span>{item}</span>
+        {/* Shipped Deliverables */}
+        <div className="p-8 rounded-2xl bg-[#090d16] border border-white/[0.08] space-y-4">
+          <h3 className="text-xl font-display font-bold text-white">
+            Shipped Deliverables
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {project.deliverables.map((del, idx) => (
+              <div key={idx} className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs text-slate-300">
+                {del}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Next Projects Carousel / Links */}
-        <div className="pt-12 border-t border-white/[0.08] space-y-8">
-          <div className="flex items-center justify-between">
+        {/* Inquiry Action Bar */}
+        <div className="p-8 rounded-2xl bg-gradient-to-r from-blue-950/40 via-slate-900 to-blue-950/40 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center sm:text-left">
             <h3 className="text-xl font-display font-bold text-white">
-              Explore More Case Studies
+              Interested in building a similar project?
             </h3>
-            <Link to="/work" className="text-xs font-mono text-blue-400 hover:underline">
-              View All ({projectsData.length}) →
-            </Link>
+            <p className="text-xs sm:text-sm text-slate-400">
+              Let's discuss how we can tailor this solution to your business requirements.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {otherProjects.map((other) => (
-              <Link 
-                key={other.id} 
-                to={`/work/${other.slug}`}
-                className="group glass-card rounded-xl p-5 border border-white/[0.08] hover:border-blue-500/40 transition-all flex items-center justify-between"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-12 rounded-lg overflow-hidden bg-slate-900 flex-shrink-0">
-                    <img src={other.previewImage} alt={other.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono text-blue-400">{other.category}</span>
-                    <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-1">{other.title}</h4>
-                  </div>
-                </div>
+          <Link
+            to={`/contact?service=${encodeURIComponent(project.category)}`}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/30 flex-shrink-0"
+          >
+            <span>Discuss This Project</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
 
+        {/* Other Projects */}
+        <div className="pt-8 border-t border-white/[0.08] space-y-6">
+          <h3 className="text-xl font-display font-bold text-white">
+            Explore More Work
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {otherProjects.map((other) => (
+              <Link
+                key={other.id}
+                to={`/work/${other.slug}`}
+                className="group p-5 rounded-xl bg-[#090d16] border border-white/[0.08] hover:border-blue-500/30 transition-all flex items-center justify-between"
+              >
+                <div>
+                  <span className="text-[10px] font-mono text-blue-400">{other.category}</span>
+                  <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">{other.title}</h4>
+                </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
               </Link>
             ))}

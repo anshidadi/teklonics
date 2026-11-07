@@ -1,178 +1,240 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ChevronDown, Code2, Cpu, Globe2, ShieldCheck, Terminal } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { HeroCanvas } from './HeroCanvas';
 
 export const HeroSection: React.FC = () => {
+  const [activePreview, setActivePreview] = useState<'web' | 'app' | 'solutions'>('web');
+
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-8 pb-16">
-      {/* Interactive canvas background */}
+    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-12 pb-20">
+      {/* Background restrained canvas */}
       <HeroCanvas />
 
-      {/* Subtle background ambient glow spots */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none -z-10"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[250px] bg-cyan-500/05 blur-[100px] rounded-full pointer-events-none -z-10"></div>
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 studio-grid pointer-events-none opacity-40 -z-10"></div>
+      {/* Subtle ambient lighting */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-blue-600/[0.08] blur-[140px] rounded-full pointer-events-none -z-10"></div>
+      <div className="absolute inset-0 studio-grid pointer-events-none opacity-30 -z-10"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Eyebrow badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-blue-500/20 backdrop-blur-md shadow-sm"
-          >
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            <span className="text-xs font-mono font-medium tracking-wider text-slate-300">
-              SOFTWARE ENGINEERING & DIGITAL ARCHITECTURE STUDIO
-            </span>
-          </motion.div>
+          {/* Left Column: Headline, copy, and CTAs (7 Cols) */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            
+            {/* Small status eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-slate-300"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+              <span>Modern Web Development Company</span>
+            </motion.div>
 
-          {/* Prominent Brand Title & Monogram Anchor */}
+            {/* Exact Headline */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.1]"
+            >
+              We Build Digital Experiences That <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">Move Businesses Forward.</span>
+            </motion.h1>
+
+            {/* Exact Supporting Text */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg sm:text-xl text-slate-300 max-w-xl leading-relaxed font-normal"
+            >
+              We design and develop modern websites, applications and digital solutions that help businesses grow.
+            </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
+            >
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-blue-600/30 border border-blue-400/30 group"
+              >
+                <span>Start a Project</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+
+              <a
+                href="#work"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg text-sm font-medium text-slate-200 bg-white/[0.04] hover:bg-white/[0.08] hover:text-white border border-white/10 transition-all duration-200"
+              >
+                <span>Explore Our Work</span>
+              </a>
+            </motion.div>
+
+            {/* Concise Reassurance Metrics */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="pt-4 flex flex-wrap items-center gap-6 text-xs font-mono text-slate-400 border-t border-white/[0.06]"
+            >
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>Responsive & Fast</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>Modern Clean Code</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>100% Code Ownership</span>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column: Distinctive Interface Composition (5 Cols) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="flex items-center justify-center gap-3"
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="lg:col-span-5"
           >
-            <div className="w-8 h-8 rounded-md bg-black border border-white/20 p-1 flex items-center justify-center shadow-blue-glow-sm">
-              <img src="/assets/teklonics-logo.png" alt="TK" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-mono text-sm tracking-[0.25em] text-blue-400 font-semibold uppercase">
-              TEKLONICS
-            </span>
-          </motion.div>
-
-          {/* Main Headline */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-white leading-[1.08]"
-          >
-            We turn <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">ambitious ideas</span> into digital experiences.
-          </motion.h1>
-
-          {/* Supporting Copy */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal"
-          >
-            Teklonics designs and develops modern websites, applications and software solutions for growing businesses. Engineered with clean architecture, enterprise reliability, and purposeful design.
-          </motion.p>
-
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
-          >
-            <Link
-              to="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-lg text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-blue-600/30 border border-blue-400/40 group"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
-
-            <Link
-              to="/work"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg text-sm font-medium text-slate-200 bg-white/[0.04] hover:bg-white/[0.08] hover:text-white border border-white/10 transition-all duration-200 backdrop-blur-sm"
-            >
-              <span>Explore Our Work</span>
-            </Link>
-          </motion.div>
-
-          {/* Interactive Technology Architecture Card / Studio Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="pt-8"
-          >
-            <div className="max-w-3xl mx-auto glass-card rounded-xl p-4 sm:p-5 border border-white/[0.08] shadow-2xl relative overflow-hidden text-left">
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06] text-xs font-mono text-slate-400">
-                <div className="flex items-center gap-2">
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></span>
-                  </div>
-                  <span className="text-slate-500">teklonics-engine // v2.6-prod</span>
+            <div className="relative rounded-2xl bg-[#090d16] border border-white/[0.1] shadow-2xl overflow-hidden">
+              
+              {/* Tab Header */}
+              <div className="bg-[#070a12] border-b border-white/[0.08] p-3 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></span>
                 </div>
-                <div className="flex items-center gap-1.5 text-blue-400">
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>Architecture Matrix</span>
+
+                {/* Interactive Mode Pills */}
+                <div className="flex items-center gap-1 bg-white/[0.03] p-0.5 rounded-lg border border-white/[0.06] text-[11px] font-mono">
+                  <button
+                    onClick={() => setActivePreview('web')}
+                    className={`px-2.5 py-1 rounded transition-colors ${activePreview === 'web' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    Web
+                  </button>
+                  <button
+                    onClick={() => setActivePreview('app')}
+                    className={`px-2.5 py-1 rounded transition-colors ${activePreview === 'app' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    App
+                  </button>
+                  <button
+                    onClick={() => setActivePreview('solutions')}
+                    className={`px-2.5 py-1 rounded transition-colors ${activePreview === 'solutions' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    Solutions
+                  </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                    <Cpu className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Stack Focus</span>
-                  </div>
-                  <p className="text-xs font-semibold text-white">React • Python • TS</p>
-                  <p className="text-[11px] text-slate-500 font-mono">Clean decoupling</p>
-                </div>
+              {/* Dynamic Interface Screen */}
+              <div className="p-5 space-y-4">
+                {activePreview === 'web' && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                      <span className="text-white font-semibold">Website Development</span>
+                      <span className="text-emerald-400">98/100 Lighthouse</span>
+                    </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                    <Code2 className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Core Team</span>
-                  </div>
-                  <p className="text-xs font-semibold text-white">5+ Specialists</p>
-                  <p className="text-[11px] text-slate-500 font-mono">Collaborative pods</p>
-                </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
+                      <div className="h-4 w-3/4 bg-blue-500/20 rounded"></div>
+                      <div className="h-2.5 w-full bg-white/[0.04] rounded"></div>
+                      <div className="h-2.5 w-5/6 bg-white/[0.04] rounded"></div>
+                    </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Code Ownership</span>
+                    <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400">
+                      <div className="p-2 rounded bg-white/[0.02] border border-white/[0.05]">
+                        <span className="text-white block font-sans font-medium">Responsive Layouts</span>
+                        <span>Desktop • Tablet • Mobile</span>
+                      </div>
+                      <div className="p-2 rounded bg-white/[0.02] border border-white/[0.05]">
+                        <span className="text-white block font-sans font-medium">Fast Load Times</span>
+                        <span>Core Web Vitals Optimized</span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xs font-semibold text-white">100% Client IP</p>
-                  <p className="text-[11px] text-slate-500 font-mono">Zero vendor lock-in</p>
-                </div>
+                )}
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                    <Globe2 className="w-3.5 h-3.5 text-indigo-400" />
-                    <span>Founder-Led</span>
+                {activePreview === 'app' && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                      <span className="text-white font-semibold">Application Development</span>
+                      <span className="text-blue-400">Interactive Dashboards</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-slate-300">Live Active Sessions</span>
+                        <span className="font-mono text-emerald-400 font-bold">1,840</span>
+                      </div>
+                      <div className="w-full bg-white/[0.05] h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-blue-500 h-full w-4/5 rounded-full"></div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400">
+                      <div className="p-2 rounded bg-white/[0.02] border border-white/[0.05]">
+                        <span className="text-white block font-sans font-medium">Custom Portals</span>
+                        <span>Role-Based Permissions</span>
+                      </div>
+                      <div className="p-2 rounded bg-white/[0.02] border border-white/[0.05]">
+                        <span className="text-white block font-sans font-medium">Database APIs</span>
+                        <span>Secure REST / GraphQL</span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xs font-semibold text-white">M. Anshid KT</p>
-                  <p className="text-[11px] text-slate-500 font-mono">Direct guidance</p>
-                </div>
+                )}
+
+                {activePreview === 'solutions' && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                      <span className="text-white font-semibold">Digital Solutions</span>
+                      <span className="text-indigo-400">APIs & Integrations</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-black/60 border border-white/[0.08] font-mono text-[11px] text-slate-300 space-y-1">
+                      <div className="text-slate-500">// Connected Ecosystem</div>
+                      <div className="text-blue-400">✔ Payment Gateway: Connected</div>
+                      <div className="text-emerald-400">✔ UI/UX System: Synchronized</div>
+                      <div className="text-slate-400">✔ Platform Maintenance: Active</div>
+                    </div>
+
+                    <div className="p-2 rounded bg-blue-600/10 border border-blue-500/20 text-[11px] text-blue-300 text-center font-mono">
+                      End-to-end technical partnership
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {/* Bottom status bar */}
+              <div className="px-4 py-2.5 bg-[#060910] border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  Ready to deploy
+                </span>
+                <span className="text-slate-500">React • TypeScript • Tailwind</span>
+              </div>
+
             </div>
           </motion.div>
 
         </div>
-
-        {/* Elegant Scroll Cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="pt-12 flex flex-col items-center justify-center text-slate-500 text-xs font-mono gap-1 cursor-pointer hover:text-blue-400 transition-colors"
-          onClick={() => {
-            const el = document.getElementById('selected-work');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          <span>EXPLORE ECOSYSTEM</span>
-          <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
-        </motion.div>
       </div>
     </section>
   );

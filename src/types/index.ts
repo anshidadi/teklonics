@@ -2,67 +2,48 @@ export interface Project {
   id: string;
   slug: string;
   title: string;
-  category: 'Web Applications' | 'E-Commerce' | 'Corporate & Business' | 'Custom Software' | 'UI/UX Design';
-  clientType: string;
+  category: 'Websites' | 'Web Applications' | 'Digital Solutions';
+  tagline: string;
   shortDesc: string;
   fullDesc: string;
-  challenge: string;
-  solution: string;
+  features: string[];
   deliverables: string[];
   technologies: string[];
-  metrics: { label: string; value: string }[];
   featured: boolean;
   year: string;
-  accentColor: string;
-  previewImage: string;
+  previewType: 'storefront' | 'dashboard' | 'hospitality' | 'saas' | 'portal';
+  previewImage?: string;
   demoUrl?: string;
-  githubUrl?: string;
 }
 
-export interface ServiceItem {
+export interface ServiceCategory {
   id: string;
-  code: string; // 'A' | 'B' | ...
+  number: string;
   title: string;
-  subtitle: string;
-  category: string;
-  description: string;
+  shortDesc: string;
+  subServices: string[];
   capabilities: string[];
-  deliverables: string[];
   technologies: string[];
-  suitableFor: string;
-  iconName: string;
+  icon: string;
 }
 
-export interface ProcessStage {
+export interface ProcessStep {
   step: number;
-  code: string;
-  name: string;
+  title: string;
   tagline: string;
-  duration: string;
-  summary: string;
-  activities: string[];
-  deliverables: string[];
-  tools: string[];
+  desc: string;
 }
 
-export interface TeamMemberProfile {
-  id: string;
-  role: string;
-  focus: string;
-  bio: string;
-  technologies: string[];
-  status: 'Active Pod' | 'Leadership';
-  isPlaceholder?: boolean;
+export interface LeaderProfile {
+  name: string;
+  role: 'Founder' | 'Co-Founder';
+  initials: string;
 }
 
-export interface ContactInquiry {
-  fullName: string;
-  companyName: string;
+export interface ContactFormData {
+  name: string;
   email: string;
-  phone: string;
-  selectedServices: string[];
-  budgetRange: string;
-  timeline: string;
-  projectSummary: string;
-  preferredMethod: 'email' | 'phone' | 'google-meet' | 'whatsapp';
+  company: string;
+  projectType: string;
+  description: string;
 }

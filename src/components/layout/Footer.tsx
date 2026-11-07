@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUp, Mail, MapPin, Terminal, ShieldCheck } from 'lucide-react';
+import { ArrowUp, Mail, MapPin } from 'lucide-react';
 import { siteConfig } from '../../data/siteConfig';
 
 export const Footer: React.FC = () => {
@@ -9,138 +9,110 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#05070a] text-slate-400 relative overflow-hidden">
-      {/* Subtle top glow line */}
-      <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/[0.06]">
+    <footer className="border-t border-white/[0.08] bg-[#05070c] text-slate-400">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/[0.08]">
           
-          {/* Column 1: Brand & Identity (2 cols on large) */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-3 group inline-flex">
-              <div className="w-10 h-10 rounded-lg overflow-hidden bg-black border border-white/10 flex items-center justify-center p-1 group-hover:border-blue-500/50 transition-colors">
+          {/* Brand Info (5 cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <Link to="/" className="flex items-center gap-3 inline-flex">
+              <div className="w-9 h-9 rounded-lg bg-black border border-white/10 flex items-center justify-center p-1">
                 <img 
                   src="/assets/teklonics-logo.png" 
                   alt="Teklonics Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-display font-bold text-xl tracking-wider text-white">
-                  TEKLONICS
-                </span>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400">
-                  Digital Solutions & Architecture
-                </span>
-              </div>
+              <span className="font-display font-bold text-lg tracking-wider text-white">
+                TEKLONICS
+              </span>
             </Link>
 
             <p className="text-sm text-slate-300 max-w-sm leading-relaxed">
-              We turn ambitious ideas into digital experiences. Modern web applications, scalable platforms, and bespoke software systems designed for growing businesses.
+              We design and develop modern websites, applications and digital solutions that help businesses grow.
             </p>
 
-            <div className="pt-2 text-xs font-mono text-slate-400 space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                <span>Directed by Founder <strong className="text-white">{siteConfig.founder.name}</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Collaborative Pod of <strong className="text-white">{siteConfig.team.size}</strong></span>
-              </div>
+            <div className="text-xs font-mono text-slate-400 space-y-1 pt-1">
+              <div>Founder: <strong className="text-white">{siteConfig.leadership.founder.name}</strong></div>
+              <div>Co-Founder: <strong className="text-white">{siteConfig.leadership.coFounder.name}</strong></div>
+              <div>{siteConfig.leadership.teamSummary}</div>
             </div>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div className="space-y-3">
-            <p className="font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold">
-              Studio
-            </p>
+          {/* Navigation Links (3 cols) */}
+          <div className="lg:col-span-3 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-wider text-white font-semibold block">
+              Navigation
+            </span>
             <ul className="space-y-2 text-sm">
-              {siteConfig.navLinks.map((link) => (
-                <li key={link.path}>
-                  <Link 
-                    to={link.path}
-                    className="hover:text-blue-400 transition-colors inline-block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-white transition-colors">Services</a>
+              </li>
+              <li>
+                <a href="#work" className="hover:text-white transition-colors">Work</a>
+              </li>
+              <li>
+                <a href="#about" className="hover:text-white transition-colors">About</a>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 3: Core Disciplines */}
-          <div className="space-y-3">
-            <p className="font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold">
-              Capabilities
-            </p>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link to="/services" className="hover:text-white transition-colors">Website Development</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">E-Commerce Platforms</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Web Applications & SaaS</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Frontend Architecture</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Backend APIs & Python</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">UI/UX Design Systems</Link></li>
+          {/* Services Links (4 cols) */}
+          <div className="lg:col-span-4 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-wider text-white font-semibold block">
+              Services
+            </span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/services" className="hover:text-white transition-colors">Website Development</Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-white transition-colors">Application Development</Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-white transition-colors">Digital Solutions</Link>
+              </li>
             </ul>
-          </div>
 
-          {/* Column 4: Contact & Verification */}
-          <div className="space-y-3">
-            <p className="font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold">
-              Direct Contact
-            </p>
-            <div className="space-y-2.5 text-xs">
+            <div className="pt-3 space-y-2 text-xs font-mono text-slate-400">
               <a 
                 href={`mailto:${siteConfig.contact.officialEmail}`}
-                className="flex items-center gap-2 text-slate-300 hover:text-blue-400 transition-colors"
+                className="flex items-center gap-2 hover:text-blue-400 transition-colors"
               >
                 <Mail className="w-3.5 h-3.5 text-blue-400" />
                 <span>{siteConfig.contact.officialEmail}</span>
               </a>
-              <div className="flex items-center gap-2 text-slate-400">
+              <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                <span>{siteConfig.contact.officeLocation}</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-400 font-mono text-[11px]">
-                <Terminal className="w-3.5 h-3.5 text-slate-500" />
-                <span>{siteConfig.contact.operatingTimezone}</span>
-              </div>
-
-              <div className="pt-3">
-                <Link
-                  to="/contact"
-                  className="inline-block px-3 py-1.5 text-xs font-medium rounded border border-white/10 hover:border-blue-500/50 bg-white/[0.02] text-white hover:bg-white/[0.05] transition-all"
-                >
-                  Send Project Brief →
-                </Link>
+                <span>{siteConfig.contact.location}</span>
               </div>
             </div>
           </div>
+
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom copyright row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
-          <div className="flex items-center gap-3">
-            <span>© {new Date().getFullYear()} TEKLONICS. All rights reserved.</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1 text-slate-400">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              Verified Studio Engineering
-            </span>
+          <div>
+            © {new Date().getFullYear()} TEKLONICS. All rights reserved.
           </div>
 
           <div className="flex items-center gap-4">
             <span className="text-slate-400 text-[11px]">
-              Clean Code • Scalable Architecture • Zero Shortcuts
+              Modern Web Development Company
             </span>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded bg-white/[0.05] hover:bg-blue-600/20 hover:text-blue-400 border border-white/10 transition-colors text-slate-300"
+              className="p-2 rounded bg-white/[0.04] hover:bg-blue-600/20 hover:text-blue-400 border border-white/10 transition-colors"
               aria-label="Scroll to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
