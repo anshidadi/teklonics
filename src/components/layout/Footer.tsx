@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUp, Mail, MapPin } from 'lucide-react';
+import { ArrowUp, Mail, Phone, MapPin } from 'lucide-react';
 import { siteConfig } from '../../data/siteConfig';
 
 export const Footer: React.FC = () => {
@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
             </Link>
 
             <p className="text-sm text-slate-300 max-w-sm leading-relaxed">
-              We design and develop modern websites, applications and digital solutions that help businesses grow.
+              {siteConfig.brand.subheadline}
             </p>
 
             <div className="text-xs font-mono text-slate-400 space-y-1 pt-1">
@@ -46,50 +46,57 @@ export const Footer: React.FC = () => {
             </span>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/" className="hover:text-white transition-colors">Home</Link>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">Services</a>
-              </li>
-              <li>
-                <a href="#work" className="hover:text-white transition-colors">Work</a>
+                <a href="#top" className="hover:text-white transition-colors">Home</a>
               </li>
               <li>
                 <a href="#about" className="hover:text-white transition-colors">About</a>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
+                <a href="#services" className="hover:text-white transition-colors">Services</a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-white transition-colors">Contact</a>
               </li>
             </ul>
           </div>
 
-          {/* Services Links (4 cols) */}
+          {/* Services & Real Contact (4 cols) */}
           <div className="lg:col-span-4 space-y-3">
             <span className="font-mono text-xs uppercase tracking-wider text-white font-semibold block">
               Services
             </span>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/services" className="hover:text-white transition-colors">Website Development</Link>
+                <a href="#services" className="hover:text-white transition-colors">Website Development</a>
               </li>
               <li>
-                <Link to="/services" className="hover:text-white transition-colors">Application Development</Link>
+                <a href="#services" className="hover:text-white transition-colors">Application Development</a>
               </li>
               <li>
-                <Link to="/services" className="hover:text-white transition-colors">Digital Solutions</Link>
+                <a href="#services" className="hover:text-white transition-colors">Digital Solutions</a>
               </li>
             </ul>
 
             <div className="pt-3 space-y-2 text-xs font-mono text-slate-400">
               <a 
-                href={`mailto:${siteConfig.contact.officialEmail}`}
+                href={`mailto:${siteConfig.contact.email}`}
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors"
               >
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
-                <span>{siteConfig.contact.officialEmail}</span>
+                <Mail className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+                <span className="break-all">{siteConfig.contact.email}</span>
               </a>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+              {siteConfig.contact.phones.map((p, idx) => (
+                <a
+                  key={idx}
+                  href={`tel:${p.raw}`}
+                  className="flex items-center gap-2 hover:text-blue-400 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                  <span>{p.display}</span>
+                </a>
+              ))}
+              <div className="flex items-center gap-2 pt-1 text-slate-500">
+                <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                 <span>{siteConfig.contact.location}</span>
               </div>
             </div>
@@ -105,7 +112,7 @@ export const Footer: React.FC = () => {
 
           <div className="flex items-center gap-4">
             <span className="text-slate-400 text-[11px]">
-              Modern Web Development Company
+              Web Development • Application Development • Digital Solutions
             </span>
             <button
               onClick={scrollToTop}

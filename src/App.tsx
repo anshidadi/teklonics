@@ -1,12 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
-import { Projects } from './pages/Projects';
-import { ProjectDetail } from './pages/ProjectDetail';
-import { Process } from './pages/Process';
 import { Contact } from './pages/Contact';
 import { NotFound } from './pages/NotFound';
 
@@ -18,10 +15,11 @@ export const App: React.FC = () => {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="services" element={<Services />} />
-          <Route path="work" element={<Projects />} />
-          <Route path="work/:slug" element={<ProjectDetail />} />
-          <Route path="process" element={<Process />} />
           <Route path="contact" element={<Contact />} />
+          {/* Graceful redirects for legacy routes */}
+          <Route path="work" element={<Navigate to="/#services" replace />} />
+          <Route path="work/*" element={<Navigate to="/#services" replace />} />
+          <Route path="process" element={<Navigate to="/#about" replace />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -1,261 +1,224 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
+import { Mail, Phone, MessageSquare, ArrowUpRight, Copy, Check, MapPin, Clock } from 'lucide-react';
 import { siteConfig } from '../../data/siteConfig';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    projectType: 'Website Development',
-    description: '',
-  });
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState<string | null>(null);
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const validate = () => {
-    const errs: Record<string, string> = {};
-    if (!formData.name.trim()) errs.name = 'Please provide your name.';
-    if (!formData.email.trim()) {
-      errs.email = 'Please provide an email address.';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errs.email = 'Please provide a valid email format.';
-    }
-    if (!formData.description.trim() || formData.description.length < 10) {
-      errs.description = 'Please provide a short description (at least 10 characters).';
-    }
-    return errs;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const copyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    const errs = validate();
-    setErrors(errs);
-
-    if (Object.keys(errs).length === 0) {
-      setIsSubmitting(true);
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-      }, 700);
-    }
+    e.stopPropagation();
+    navigator.clipboard.writeText(siteConfig.contact.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const resetForm = () => {
-    setIsSubmitted(false);
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      projectType: 'Website Development',
-      description: '',
-    });
-    setErrors({});
+  const copyPhone = (phone: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(phone);
+    setCopiedPhone(phone);
+    setTimeout(() => setCopiedPhone(null), 2000);
   };
 
   return (
     <section id="contact" className="py-24 relative border-t border-white/[0.08] bg-[#070a12]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-16 space-y-4 text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-mono">
+            <span>GET IN TOUCH</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight leading-[1.15]">
+            Let's Build Something <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">
+              Great Together.
+            </span>
+          </h2>
+
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+            Have a website or application idea? Get in touch with our team and let's discuss your project.
+          </p>
+        </div>
+
+        {/* Real Contact Action Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           
-          {/* Left Column: Headline, Copy & Real Contact Info (5 Cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-mono">
-              <span>GET IN TOUCH</span>
-            </div>
+          {/* Card 1: Official Email */}
+          <div className="p-8 rounded-2xl bg-[#090d16] border border-white/[0.08] hover:border-blue-500/40 transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                <Mail className="w-6 h-6" />
+              </div>
 
-            <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight leading-[1.15]">
-              Have an Idea? <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">
-                Let's Build It.
-              </span>
-            </h2>
-
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-              Tell us what you're planning. Let's discuss how we can bring your idea to life.
-            </p>
-
-            <div className="pt-4 space-y-3.5 text-sm">
-              <div className="flex items-center gap-3 text-slate-300">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-blue-400 flex-shrink-0">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <a 
-                  href={`mailto:${siteConfig.contact.officialEmail}`}
-                  className="hover:text-blue-400 transition-colors font-mono text-xs sm:text-sm"
+              <div>
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block">
+                  Email Inquiries
+                </span>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="text-lg sm:text-xl font-display font-bold text-white hover:text-blue-400 transition-colors break-all mt-1 inline-block"
                 >
-                  {siteConfig.contact.officialEmail}
+                  {siteConfig.contact.email}
                 </a>
               </div>
 
-              <div className="flex items-center gap-3 text-slate-400">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-400 flex-shrink-0">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span className="font-mono text-xs sm:text-sm">{siteConfig.contact.location}</span>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Send us your project outline or inquiry directly. We respond within 24 business hours.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between gap-2">
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-sm"
+              >
+                <span>Compose Email</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
+              <button
+                onClick={copyEmail}
+                className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.06] transition-colors"
+                title="Copy email address"
+                aria-label="Copy email address"
+              >
+                {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Phone Number 1 */}
+          <div className="p-8 rounded-2xl bg-[#090d16] border border-white/[0.08] hover:border-blue-500/40 transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-emerald-950/60 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                <Phone className="w-6 h-6" />
               </div>
+
+              <div>
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block">
+                  Direct Line & WhatsApp
+                </span>
+                <a
+                  href={`tel:${siteConfig.contact.phones[0].raw}`}
+                  className="text-lg sm:text-xl font-display font-bold text-white hover:text-blue-400 transition-colors mt-1 inline-block"
+                >
+                  {siteConfig.contact.phones[0].display}
+                </a>
+              </div>
+
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Direct phone consultation with our team for rapid discussion of your project requirements.
+              </p>
             </div>
 
-            <div className="pt-2 text-xs font-mono text-slate-500">
-              Direct founder review • No automated sales spam
-            </div>
-          </div>
+            <div className="pt-4 border-t border-white/[0.06] flex items-center gap-2">
+              <a
+                href={`tel:${siteConfig.contact.phones[0].raw}`}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-sm"
+              >
+                <Phone className="w-3 h-3" />
+                <span>Call Now</span>
+              </a>
 
-          {/* Right Column: Clean Contact Form (7 Cols) */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-9 rounded-2xl bg-[#0a0d16] border border-white/[0.08]">
-              
-              {isSubmitted ? (
-                <div className="py-12 text-center space-y-5">
-                  <div className="w-14 h-14 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-7 h-7" />
-                  </div>
+              <a
+                href={siteConfig.contact.phones[0].whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-sm"
+                title="Chat on WhatsApp"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>WhatsApp</span>
+              </a>
 
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-display font-bold text-white">
-                      Message Sent Successfully
-                    </h3>
-                    <p className="text-sm text-slate-300 max-w-sm mx-auto">
-                      Thank you, <strong className="text-white">{formData.name}</strong>. We have received your project details and will be in touch shortly.
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={resetForm}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] border border-white/10 transition-colors"
-                  >
-                    <RefreshCw className="w-3.5 h-3.5" />
-                    <span>Send Another Inquiry</span>
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                  
-                  {/* Name & Email Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-mono uppercase text-slate-300 font-medium">
-                        Your Name <span className="text-blue-400">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="John Doe"
-                        className={`w-full bg-[#070a12] border rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none transition-colors ${
-                          errors.name ? 'border-red-500' : 'border-white/10 focus:border-blue-500'
-                        }`}
-                      />
-                      {errors.name && (
-                        <p className="text-[11px] text-red-400 font-mono flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" /> {errors.name}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-mono uppercase text-slate-300 font-medium">
-                        Email Address <span className="text-blue-400">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="john@company.com"
-                        className={`w-full bg-[#070a12] border rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none transition-colors ${
-                          errors.email ? 'border-red-500' : 'border-white/10 focus:border-blue-500'
-                        }`}
-                      />
-                      {errors.email && (
-                        <p className="text-[11px] text-red-400 font-mono flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" /> {errors.email}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Company & Project Type Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-mono uppercase text-slate-300 font-medium">
-                        Company / Business
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="Acme Corp"
-                        className="w-full bg-[#070a12] border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-mono uppercase text-slate-300 font-medium">
-                        Project Type
-                      </label>
-                      <select
-                        value={formData.projectType}
-                        onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full bg-[#070a12] border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500"
-                      >
-                        <option value="Website Development">Website Development</option>
-                        <option value="Application Development">Application Development</option>
-                        <option value="Digital Solutions">Digital Solutions</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Project Description */}
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-mono uppercase text-slate-300 font-medium">
-                      Project Description <span className="text-blue-400">*</span>
-                    </label>
-                    <textarea
-                      rows={4}
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Tell us about what you want to build, requirements, or target timeline..."
-                      className={`w-full bg-[#070a12] border rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none transition-colors ${
-                        errors.description ? 'border-red-500' : 'border-white/10 focus:border-blue-500'
-                      }`}
-                    ></textarea>
-                    {errors.description && (
-                      <p className="text-[11px] text-red-400 font-mono flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" /> {errors.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 active:scale-[0.99] transition-all shadow-md shadow-blue-600/30 border border-blue-400/30"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 animate-spin" />
-                          <span>Sending Inquiry...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Send Message</span>
-                          <Send className="w-4 h-4" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                </form>
-              )}
-
+              <button
+                onClick={(e) => copyPhone(siteConfig.contact.phones[0].display, e)}
+                className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.06] transition-colors"
+                title="Copy phone number"
+                aria-label="Copy phone number"
+              >
+                {copiedPhone === siteConfig.contact.phones[0].display ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              </button>
             </div>
           </div>
 
+          {/* Card 3: Phone Number 2 */}
+          <div className="p-8 rounded-2xl bg-[#090d16] border border-white/[0.08] hover:border-blue-500/40 transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-cyan-950/60 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
+                <Phone className="w-6 h-6" />
+              </div>
+
+              <div>
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block">
+                  Secondary Line & WhatsApp
+                </span>
+                <a
+                  href={`tel:${siteConfig.contact.phones[1].raw}`}
+                  className="text-lg sm:text-xl font-display font-bold text-white hover:text-blue-400 transition-colors mt-1 inline-block"
+                >
+                  {siteConfig.contact.phones[1].display}
+                </a>
+              </div>
+
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Alternative direct contact line for technical inquiries and client collaboration.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-white/[0.06] flex items-center gap-2">
+              <a
+                href={`tel:${siteConfig.contact.phones[1].raw}`}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-sm"
+              >
+                <Phone className="w-3 h-3" />
+                <span>Call Now</span>
+              </a>
+
+              <a
+                href={siteConfig.contact.phones[1].whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-sm"
+                title="Chat on WhatsApp"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>WhatsApp</span>
+              </a>
+
+              <button
+                onClick={(e) => copyPhone(siteConfig.contact.phones[1].display, e)}
+                className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.06] transition-colors"
+                title="Copy phone number"
+                aria-label="Copy phone number"
+              >
+                {copiedPhone === siteConfig.contact.phones[1].display ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Operating Details Strip */}
+        <div className="mt-12 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0" />
+            <span>Operating from <strong>{siteConfig.contact.location}</strong></span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>{siteConfig.contact.status}</span>
+          </div>
+
+          <div className="flex items-center gap-2 text-slate-500">
+            <Clock className="w-4 h-4 text-slate-500 flex-shrink-0" />
+            <span>Quick response commitment</span>
+          </div>
         </div>
 
       </div>

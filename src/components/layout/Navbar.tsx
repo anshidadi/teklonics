@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Phone, Mail } from 'lucide-react';
 import { siteConfig } from '../../data/siteConfig';
 
 export const Navbar: React.FC = () => {
@@ -58,39 +58,41 @@ export const Navbar: React.FC = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Minimal Desktop Navigation: Home, About, Services, Contact */}
           <nav className="hidden md:flex items-center gap-1 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.07] backdrop-blur-md">
             {siteConfig.navLinks.map((link) => (
-              <Link
-                  key={link.label}
-                  to={link.path}
-                  onClick={(e) => handleNavClick(e, link.path)}
-                  className="px-4 py-1.5 text-xs lg:text-sm font-medium rounded-full text-slate-300 hover:text-white hover:bg-white/[0.05] transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <a
+                key={link.label}
+                href={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
+                className="px-4 py-1.5 text-xs lg:text-sm font-medium rounded-full text-slate-300 hover:text-white hover:bg-white/[0.05] transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Desktop Action */}
+          {/* Desktop Direct Contact Button */}
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              to="/contact"
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '/#contact')}
               className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-md shadow-blue-600/30 border border-blue-400/30 group"
             >
-              <span>Start a Project</span>
+              <span>Contact Us</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
-            <Link
-              to="/contact"
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '/#contact')}
               className="px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-500"
             >
-              Start
-            </Link>
+              Contact
+            </a>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-lg bg-white/[0.04] border border-white/10 text-slate-300 hover:text-white transition-colors"
@@ -102,30 +104,48 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-b border-white/10 bg-[#070a12]/98 backdrop-blur-xl px-4 py-5 space-y-3">
+        <div className="md:hidden border-b border-white/10 bg-[#070a12]/98 backdrop-blur-xl px-4 py-5 space-y-4">
           <div className="flex flex-col space-y-1">
             {siteConfig.navLinks.map((link) => (
-              <Link
+              <a
                 key={link.label}
-                to={link.path}
+                href={link.path}
                 onClick={(e) => handleNavClick(e, link.path)}
                 className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/[0.06] hover:text-white transition-colors"
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
 
-          <div className="pt-2 border-t border-white/10">
-            <Link
-              to="/contact"
+          <div className="pt-3 border-t border-white/10 space-y-2">
+            <a
+              href={`mailto:${siteConfig.contact.email}`}
+              className="flex items-center gap-2 text-xs text-slate-300 hover:text-blue-400 font-mono"
+            >
+              <Mail className="w-3.5 h-3.5 text-blue-400" />
+              <span>{siteConfig.contact.email}</span>
+            </a>
+            <a
+              href={`tel:${siteConfig.contact.phones[0].raw}`}
+              className="flex items-center gap-2 text-xs text-slate-300 hover:text-blue-400 font-mono"
+            >
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{siteConfig.contact.phones[0].display}</span>
+            </a>
+          </div>
+
+          <div className="pt-2">
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '/#contact')}
               className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30"
             >
-              <span>Start a Project</span>
+              <span>Contact Us</span>
               <ArrowUpRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
         </div>
       )}

@@ -70,7 +70,7 @@ export const Services: React.FC = () => {
                     Specific Solutions:
                   </h3>
                   <ul className="space-y-2">
-                    {service.subServices.map((sub, idx) => (
+                    {service.examples.map((sub, idx) => (
                       <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-300">
                         <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
                         <span>{sub}</span>

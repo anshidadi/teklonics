@@ -1,37 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Globe, Layers, Cpu, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { servicesData } from '../../data/servicesData';
 
 export const ServicesOverview: React.FC = () => {
   return (
-    <section id="services" className="py-24 relative border-t border-white/[0.08] bg-[#05070c]">
+    <section id="services" className="py-24 relative border-t border-white/[0.08] bg-[#070a12]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-2xl mb-16 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-mono">
-            <span>WHAT WE DO</span>
+            <span>OUR SERVICES</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight">
-            Our Services
+            What We Do
           </h2>
           <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-            We focus on three core areas to help your business establish a credible, high-converting digital presence.
+            We provide three primary web development and digital services designed to help businesses build and grow their online presence.
           </p>
         </div>
 
-        {/* 3 Main Service Cards Grid with Asymmetric Polish */}
+        {/* 3 Primary Service Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {servicesData.map((service) => {
             const isFeatured = service.id === 'website-development';
             return (
               <div
                 key={service.id}
-                className={`glass-card rounded-2xl p-7 sm:p-8 border transition-all duration-300 flex flex-col justify-between space-y-8 relative group ${
+                className={`rounded-2xl p-7 sm:p-8 border transition-all duration-300 flex flex-col justify-between space-y-8 relative group ${
                   isFeatured 
-                    ? 'border-blue-500/40 bg-gradient-to-b from-[#0a0f1d] to-[#070a12] shadow-blue-glow-sm' 
-                    : 'border-white/[0.08] hover:border-blue-500/30'
+                    ? 'border-blue-500/40 bg-gradient-to-b from-[#0a0f1d] to-[#070a12] shadow-lg shadow-blue-950/20' 
+                    : 'border-white/[0.08] bg-[#090d16] hover:border-blue-500/30'
                 }`}
               >
                 <div className="space-y-6">
@@ -57,31 +56,31 @@ export const ServicesOverview: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Clear Sub-Service Bullet Points */}
+                  {/* Examples List */}
                   <div className="space-y-2.5 pt-2 border-t border-white/[0.06]">
                     <span className="text-[11px] font-mono uppercase text-slate-400 font-semibold tracking-wider block">
-                      Capabilities Include:
+                      Examples:
                     </span>
                     <ul className="space-y-2">
-                      {service.subServices.map((sub, idx) => (
+                      {service.examples.map((ex, idx) => (
                         <li key={idx} className="flex items-center gap-2.5 text-xs text-slate-300">
                           <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
-                          <span>{sub}</span>
+                          <span>{ex}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* Card Action */}
+                {/* Card Contact Action */}
                 <div className="pt-6 border-t border-white/[0.06]">
-                  <Link
-                    to={`/contact?service=${encodeURIComponent(service.title)}`}
+                  <a
+                    href="#contact"
                     className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold text-white bg-white/[0.04] hover:bg-blue-600 hover:border-blue-500 border border-white/10 transition-all duration-200 group-hover:bg-blue-600/20 group-hover:border-blue-500/40"
                   >
                     <span>Discuss {service.title}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             );

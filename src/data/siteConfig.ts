@@ -2,9 +2,9 @@ export const siteConfig = {
   brand: {
     name: 'TEKLONICS',
     legalName: 'Teklonics',
-    headline: 'We Build Digital Experiences That Move Businesses Forward.',
-    subheadline: 'We design and develop modern websites, applications and digital solutions that help businesses grow.',
-    shortBio: 'A modern web development company focused on building modern websites, applications and practical digital solutions.',
+    headline: 'Building Digital Experiences for Modern Businesses.',
+    subheadline: 'Teklonics helps businesses establish and grow their digital presence through professional websites, applications and practical digital solutions.',
+    shortBio: 'A web development company focused on building modern websites, applications and digital solutions for businesses.',
     logoPath: '/assets/teklonics-logo.png',
   },
   leadership: {
@@ -21,15 +21,26 @@ export const siteConfig = {
     teamSummary: 'A team of 5+ members',
   },
   contact: {
-    officialEmail: 'contact@teklonics.com',
+    email: 'solutionteklonics@gmail.com',
+    phones: [
+      {
+        display: '+91 8086100296',
+        raw: '+918086100296',
+        whatsapp: 'https://wa.me/918086100296',
+      },
+      {
+        display: '+91 94469 50235',
+        raw: '+919446950235',
+        whatsapp: 'https://wa.me/919446950235',
+      },
+    ],
     location: 'Kerala, India',
-    status: 'Available for new projects',
+    status: 'Available for new client projects',
   },
   navLinks: [
-    { label: 'Home', path: '/' },
-    { label: 'Services', path: '/#services', route: '/services' },
-    { label: 'Work', path: '/#work', route: '/work' },
+    { label: 'Home', path: '/#top', route: '/' },
     { label: 'About', path: '/#about', route: '/about' },
+    { label: 'Services', path: '/#services', route: '/services' },
     { label: 'Contact', path: '/#contact', route: '/contact' },
   ],
 };

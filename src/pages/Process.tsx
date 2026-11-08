@@ -28,7 +28,7 @@ export const Process: React.FC = () => {
   return (
     <div className="py-16 sm:py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-        
+
         {/* Header */}
         <div className="max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-mono">
@@ -69,7 +69,7 @@ export const Process: React.FC = () => {
                     {step.title}
                   </h3>
                   <p className="text-xs font-mono text-blue-300">
-                    {step.tagline}
+                    STEP 0{step.step}
                   </p>
                 </div>
 

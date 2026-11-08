@@ -30,13 +30,13 @@ export const NotFound: React.FC = () => {
             <span>Return Home</span>
           </Link>
 
-          <Link
-            to="/work"
+          <a
+            href="/#services"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors"
           >
             <Layers className="w-3.5 h-3.5" />
-            <span>View Case Studies</span>
-          </Link>
+            <span>Explore Services</span>
+          </a>
         </div>
       </div>
     </div>
