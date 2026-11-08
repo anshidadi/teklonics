@@ -8,8 +8,10 @@ import { Contact } from './pages/Contact';
 import { NotFound } from './pages/NotFound';
 
 export const App: React.FC = () => {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

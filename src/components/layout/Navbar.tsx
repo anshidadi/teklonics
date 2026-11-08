@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center gap-3 group focus:outline-none">
             <div className="w-9 h-9 rounded-lg bg-black border border-white/10 group-hover:border-blue-500/50 transition-colors flex items-center justify-center p-1">
               <img 
-                src="/assets/teklonics-logo.png" 
+                src={`${import.meta.env.BASE_URL}assets/teklonics-logo.png`}
                 alt="Teklonics Logo" 
                 className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(37,99,235,0.4)]"
               />

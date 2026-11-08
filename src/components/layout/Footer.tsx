@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
             <Link to="/" className="flex items-center gap-3 inline-flex">
               <div className="w-9 h-9 rounded-lg bg-black border border-white/10 flex items-center justify-center p-1">
                 <img 
-                  src="/assets/teklonics-logo.png" 
+                  src={`${import.meta.env.BASE_URL}assets/teklonics-logo.png`}
                   alt="Teklonics Logo" 
                   className="w-full h-full object-contain"
                 />
