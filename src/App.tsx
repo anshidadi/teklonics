@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
@@ -18,7 +19,6 @@ export const App: React.FC = () => {
           <Route path="about" element={<About />} />
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
-          {/* Graceful redirects for legacy routes */}
           <Route path="work" element={<Navigate to="/#services" replace />} />
           <Route path="work/*" element={<Navigate to="/#services" replace />} />
           <Route path="process" element={<Navigate to="/#about" replace />} />
